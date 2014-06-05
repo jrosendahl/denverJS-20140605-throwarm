@@ -8,4 +8,4 @@ function Stores() {
     return stores;
 }
 
-module.exports = Stores();
+module.exports = Stores;

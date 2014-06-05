@@ -2,6 +2,7 @@
 
 var Datagram = require('throwarm').Datagram;
 var endPoint = require('../endPoints/sakila');
+var Calc = require('throwarm').Calc;
 
 function Film () {
 	Object.defineProperty(this, 'base', {value:Datagram, writable:false, configurable:false, enumerable:false});
@@ -13,7 +14,10 @@ function Film () {
 		title:'title',
 		releaseYear:'release_year',
 		rentalDuration:'rental_duration',
-		rentalRate:'rental_rate'
+		rentalRate:'rental_rate',
+		allAges: new Calc('rating', function(rating) {
+			return rating === 'G' || rating === 'PG';
+		})
 	};
 }
 

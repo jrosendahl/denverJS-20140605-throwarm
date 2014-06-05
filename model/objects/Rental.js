@@ -17,4 +17,18 @@ function Rental() {
 Rental.protytype = new Datagram();
 Rental.prototype.constructor = Rental;
 
+function daysRented() {
+	var self = this;
+	var rentalDate = new Date(self.date);
+	if(self.returnDate) {
+		var date = new Date(self.returnDate);
+	}
+	else {
+		var date = new Date();
+	}
+	var days = (date.getTime() - rentalDate.getTime())/(24*60*60*1000);
+	return days |0;
+}
+Rental.prototype.daysRented = daysRented;
+
 module.exports = Rental;

@@ -8,4 +8,4 @@ function Films() {
     return films;
 }
 
-module.exports = Films();
+module.exports = Films;

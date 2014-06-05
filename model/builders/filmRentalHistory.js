@@ -1,7 +1,7 @@
-module.exports = function(filmID) {
+module.exports = function(filmID, callback) {
 
 	var mysql = require('mysql');
-	var connection = mysql.connection({
+	var connection = mysql.createConnection({
 		host            : 'localhost',
 		user            : 'demo',
 		password        : 'password',
@@ -23,13 +23,21 @@ module.exports = function(filmID) {
 			var rental = new objects.Rental();
 			return rental;
 		};
+		return store;
 	}
 
-	var q = 'select film.*, store.*, rentals.* from films ' +
-			'left join inventory on fims.film_id = inventory.film_id ' + 
+	var q = 'select film.*, store.*, rental.*, address.*, city.* from film ' +
+			'left join inventory on film.film_id = inventory.film_id ' + 
 			'left join store on inventory.store_id = store.store_id ' + 
-			'left Join rental on inventory.inventory_id = rentals.inventory_id ' + 
-			'where film_id = ?;
-
+			'left join address on store.address_id = address.address_id ' + 
+			'left join city on address.city_id = city.city_id ' + 
+			'left Join rental on inventory.inventory_id = rental.inventory_id ' + 
+			'where film.film_id = ?';
+	connection.query(q, [filmID], function(err, results) {
+		if(err) {return callback(err)}
+		film.fill(results);
+		console.log(film);
+		callback(null, film);
+	});
 
 }

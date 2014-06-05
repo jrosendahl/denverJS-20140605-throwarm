@@ -13,6 +13,7 @@ describe('Film', function() {
 				film.releaseYear.should.equal(2006);
 				film.rentalDuration.should.equal(5);
 				film.rentalRate.should.equal(4.99);
+				film.allAges.should.be.false;
 				done();
 			});
 		});
